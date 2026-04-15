@@ -1,6 +1,6 @@
 # Raftar IP
 
-A privacy-first IP rotation tool built by **Avi**. Raftar IP automatically rotates your public IP address every 60 seconds using the Tor network, with a premium web dashboard to control everything.
+A privacy-first IP rotation tool built by **Avi**. Raftar IP automatically rotates your public IP address every 60 seconds using encrypted relay circuits, with a premium web dashboard to control everything.
 
 ## Features
 
@@ -11,70 +11,64 @@ A privacy-first IP rotation tool built by **Avi**. Raftar IP automatically rotat
 - **Live System Logs** — Real-time terminal-style log feed showing exactly what's happening
 - **Uptime Counter & Countdown Timer** — See how long you've been protected and when the next rotation hits
 
-## How It Works
+## Quick Start (One Command)
 
+```bash
+git clone https://github.com/avi20009/Raftar-IP.git
+cd Raftar-IP
+./start.sh
 ```
-Browser → Privoxy (HTTP Proxy :8118) → Tor (SOCKS5 :9050) → Internet
-```
 
-When activated, Raftar IP configures your Mac's HTTP/HTTPS proxy to route all browser traffic through a local Privoxy instance, which forwards it through the Tor network. Every 60 seconds, a new Tor circuit is requested, giving you a completely new IP address.
+That's it. The script automatically:
+- ✅ Installs Homebrew (if missing)
+- ✅ Installs & configures Tor
+- ✅ Installs & configures Privoxy
+- ✅ Installs Python dependencies
+- ✅ Starts all background services
+- ✅ Launches the Raftar IP dashboard
 
-## Prerequisites
+Then open **http://localhost:3000** in your browser.
 
-- macOS with [Homebrew](https://brew.sh/) installed
+## Requirements
+
+- macOS (Apple Silicon or Intel)
 - Python 3.9+
-
-## Setup
-
-### 1. Install Tor & Privoxy
-
-```bash
-brew install tor privoxy
-```
-
-### 2. Configure Tor Control Port
-
-```bash
-echo "ControlPort 9051" >> $(brew --prefix)/etc/tor/torrc
-echo "ExitNodes {ch}" >> $(brew --prefix)/etc/tor/torrc
-echo "StrictNodes 1" >> $(brew --prefix)/etc/tor/torrc
-```
-
-### 3. Configure Privoxy to forward to Tor
-
-```bash
-echo "forward-socks5t / 127.0.0.1:9050 ." >> $(brew --prefix)/etc/privoxy/config
-```
-
-### 4. Start the services
-
-```bash
-brew services start tor
-brew services start privoxy
-```
-
-### 5. Install Python dependencies
-
-```bash
-pip3 install flask requests stem pysocks
-```
-
-## Running
-
-```bash
-python3 app.py
-```
-
-Then open your browser to **http://localhost:3000**
 
 ## Usage
 
 1. Click **Connect to Raftar** and enter your Mac password when prompted
-2. Your browser traffic is now anonymized through the Tor network
+2. Your browser traffic is now anonymized through encrypted relay circuits
 3. Use the **country buttons** to switch your exit node region
 4. Use **Force New IP** to instantly get a new identity
 5. Watch the live terminal logs for real-time system activity
 6. Click **Disconnect** to restore your normal connection
+
+## Manual Setup
+
+If you prefer to set things up manually instead of using `start.sh`:
+
+```bash
+# Install dependencies
+brew install tor privoxy
+
+# Configure Tor
+echo "ControlPort 9051" >> $(brew --prefix)/etc/tor/torrc
+echo "ExitNodes {ch}" >> $(brew --prefix)/etc/tor/torrc
+echo "StrictNodes 1" >> $(brew --prefix)/etc/tor/torrc
+
+# Configure Privoxy
+echo "forward-socks5t / 127.0.0.1:9050 ." >> $(brew --prefix)/etc/privoxy/config
+
+# Start services
+brew services start tor
+brew services start privoxy
+
+# Install Python packages
+pip3 install flask requests stem pysocks
+
+# Launch
+python3 app.py
+```
 
 ## Created by
 
