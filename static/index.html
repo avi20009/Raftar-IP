@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tor Proxy Dashboard</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Outfit:wght@500;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="app-layout">
+        <!-- Main Controls Panel -->
+        <div class="app-container glass-panel">
+            <div class="header">
+                <h1>Raftar IP</h1>
+                <p>Created by Avi</p>
+            </div>
+
+            <div class="status-card" id="status-card">
+                <div class="status-header">
+                    <span class="pulse-indicator" id="pulse"></span>
+                    <h2 id="status-text">DISCONNECTED</h2>
+                </div>
+                <div class="ip-container">
+                    <p id="ip-text">0.0.0.0</p>
+                    <p class="ip-label">Exit Node IP</p>
+                </div>
+                
+                <div class="stats-grid">
+                    <div class="stat-box">
+                        <span class="stat-value" id="uptime">00:00:00</span>
+                        <span class="stat-label">Uptime</span>
+                    </div>
+                    <div class="stat-box">
+                        <span class="stat-value" id="time-left">01:00</span>
+                        <span class="stat-label">Next IP In</span>
+                    </div>
+                    <div class="stat-box">
+                        <span class="stat-value" id="protocol">Direct</span>
+                        <span class="stat-label">Protocol</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="controls">
+                <button id="toggle-btn" class="toggle-btn off">
+                    <svg id="power-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18.36 6.64a9 9 0 1 1-12.73 0"></path><line x1="12" y1="2" x2="12" y2="12"></line></svg>
+                    <span id="btn-text">Turn ON</span>
+                </button>
+            </div>
+            
+            <div class="action-row">
+                <button id="force-rotate-btn" class="secondary-btn disabled" disabled>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23 4 23 10 17 10"></polyline><polyline points="1 20 1 14 7 14"></polyline><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"></path></svg>
+                    Force New IP
+                </button>
+            </div>
+
+            <div class="country-section">
+                <h3 class="section-title">Exit Node Region</h3>
+                <div class="country-grid">
+                    <button class="country-btn active" data-code="ch">
+                        <span class="country-flag">🇨🇭</span>
+                        <span class="country-name">Switzerland</span>
+                    </button>
+                    <button class="country-btn" data-code="jp">
+                        <span class="country-flag">🇯🇵</span>
+                        <span class="country-name">Japan</span>
+                    </button>
+                    <button class="country-btn" data-code="de">
+                        <span class="country-flag">🇩🇪</span>
+                        <span class="country-name">Germany</span>
+                    </button>
+                    <button class="country-btn" data-code="fr">
+                        <span class="country-flag">🇫🇷</span>
+                        <span class="country-name">France</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Terminal Log Panel -->
+        <div class="terminal-panel glass-panel">
+            <div class="terminal-header">
+                <div class="window-controls">
+                    <span class="dot red"></span>
+                    <span class="dot yellow"></span>
+                    <span class="dot green"></span>
+                </div>
+                <span class="terminal-title">System Logs (Live)</span>
+            </div>
+            <div class="terminal-body" id="terminal-output">
+                <!-- Logs injected via JS -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Loading Overlay -->
+    <div id="loader" class="glass-panel overlay-center hidden">
+        <h2 id="loader-title">Authorizing...</h2>
+        <p>Awaiting macOS System Password</p>
+        <div class="spinner"></div>
+    </div>
+
+    <script src="main.js"></script>
+</body>
+</html>
